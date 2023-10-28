@@ -22,7 +22,7 @@ int	ft_putstr(char *s)
 	int	i;
 
 	i = 0;
-	while (*(s+ i))
+	while (*(s + i))
 	{
 		write (1, &*(s + i), 1);
 		i++;
@@ -51,7 +51,24 @@ int	ft_putnbr(long n)
 	return (i);
 }
 
-int	ft_puthex(unsigned long a, char *s)
+int	ft_puthex(unsigned long a, char c)
 {
-	
+	int	len;
+
+	len = 0;
+	if (a >= 16)
+	{
+		len += ft_puthex(a / 16, c);
+		len += ft_puthex(a % 16, c);
+	}
+	else
+	{
+		if (a <= 9)
+			len += ft_putchar(a + '0');
+		else if (c == 'x')
+			len += ft_putchar(a - 10 + 'a');
+		else if (c == 'X')
+			len += ft_putchar(a - 10 + 'A');
+	}
+	return (len);
 }

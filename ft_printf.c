@@ -12,6 +12,31 @@
 
 #include "ft_printf.h"
 
+int	ft_percent(va_list arg, char c)
+{
+	int	len;
+
+	len = 0;
+	if (c == 'c')
+		len += ft_putchar(va_arg(arg, int));
+	else if (c == 's')
+		len += ft_putstr(va_arg(arg, char *));
+	else if (c == 'd' || c == 'i')
+		len += ft_putnbr(va_arg(arg, int));
+	else if (c == 'u')
+		len += ft_putnbr(va_arg(arg, unsigned int));
+	else if (c == 'x' || c == 'X')
+		len += ft_hex(va_arg(arg, unsigned int), c);
+	else if (c == 'p')
+	{
+		len += ft_putstr("0x");
+		len += ft_hex(va_arg(arg, unsigned int), 'x');
+	}
+	else if (c == '%')
+		len += ft_putchar('%');
+	return (len);
+}
+
 int	ft_printf(char const *str, ...)
 {
 	va_list	args;
