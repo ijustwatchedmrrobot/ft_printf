@@ -21,6 +21,8 @@ int	ft_putstr(char *s)
 {
 	int	i;
 
+	if (!s)
+		s = "(null)";
 	i = 0;
 	while (*(s + i))
 	{
@@ -51,24 +53,13 @@ int	ft_putnbr(long n)
 	return (i);
 }
 
-int	ft_puthex(unsigned long a, char c)
+int	ft_puthex(unsigned long a, char *s)
 {
 	int	len;
 
 	len = 0;
-	if (a >= 16)
-	{
-		len += ft_puthex(a / 16, c);
-		len += ft_puthex(a % 16, c);
-	}
-	else
-	{
-		if (a <= 9)
-			len += ft_putchar(a + '0');
-		else if (c == 'x')
-			len += ft_putchar(a - 10 + 'a');
-		else if (c == 'X')
-			len += ft_putchar(a - 10 + 'A');
-	}
+	if (a > 15)
+		len += ft_puthex(a / 16, s);
+	len += ft_putchar(*(s + (a % 16)));
 	return (len);
 }

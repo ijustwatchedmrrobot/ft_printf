@@ -25,12 +25,14 @@ int	ft_percent(va_list arg, char c)
 		len += ft_putnbr(va_arg(arg, int));
 	else if (c == 'u')
 		len += ft_putnbr(va_arg(arg, unsigned int));
-	else if (c == 'x' || c == 'X')
-		len += ft_hex(va_arg(arg, unsigned int), c);
+	else if (c == 'x')
+		len += ft_puthex(va_arg(arg, unsigned int), "0123456789abcdef");
+	else if (c == 'X')
+		len += ft_puthex(va_arg(arg, unsigned int), "0123456789ABCDEF");
 	else if (c == 'p')
 	{
-		len += ft_putstr("0x");
-		len += ft_hex(va_arg(arg, unsigned int), 'x');
+		len += write(1, "0x", 2);
+		len += ft_puthex(va_arg(arg, unsigned long), "0123456789abcdef");
 	}
 	else if (c == '%')
 		len += ft_putchar('%');
@@ -47,7 +49,10 @@ int	ft_printf(char const *str, ...)
 	while (*str)
 	{
 		if (*str == '%')
+		{
 			len += ft_percent(args, *(str + 1));
+			str++;
+		}
 		else
 			len += ft_putchar(*str);
 		str++;

@@ -10,4 +10,11 @@ ${NAME}: ${OBJS}
 	ar -rcs ${NAME} ${OBJS}
 
 clean:
-	rm -rf
+	rm -rf ${OBJS}
+
+fclean: clean
+	rm -rf ${NAME}
+
+re: fclean all
+
+.PHONY: all clean fclean re

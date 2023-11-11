@@ -20,6 +20,6 @@ int	ft_printf(char const *str, ...);
 int	ft_putchar(char c);
 int	ft_putstr(char *s);
 int	ft_putnbr(long n);
-int	ft_puthex(unsigned long a, char c);
+int	ft_puthex(unsigned long a, char *s);
 
 #endif
